@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={
           <div className="bg-gray-50 min-h-screen flex text-gray-800">
             <Sidebar />
-            <main className="flex-1 p-8 ml-64">
+            <main className="flex-1 p-8 ml-72">
               <Header />
               <div className="mt-8 space-y-12">
                 <Hero />
