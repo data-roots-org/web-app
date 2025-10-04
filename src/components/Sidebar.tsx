@@ -9,10 +9,10 @@ const navItems = [
 
 const Sidebar = () => {
   return (
-    <aside className="w-64 bg-white p-6 fixed h-full border-r border-gray-200">
+    <aside className="bg-white p-6 fixed h-full border-r border-gray-200">
       <h1 className="text-2xl font-bold text-green-700">Green Pathways</h1>
       <nav className="mt-10">
-        <ul>
+        <ul className='space-y-2'>
           {navItems.map((item) => (
             <li key={item.name}>
               <a
