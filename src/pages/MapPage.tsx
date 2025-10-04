@@ -24,6 +24,7 @@ const MapPage = () => {
               zoom={13}
               scrollWheelZoom={true}
               className="h-full w-full"
+              style={{ height: "100vh", width: "100vw" }}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

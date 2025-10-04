@@ -5,6 +5,7 @@ import MapSection from "./components/MapSection";
 import Sidebar from "./components/Sidebar";
 import Stats from "./components/Stats";
 import MapPage from "./pages/MapPage";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   return (

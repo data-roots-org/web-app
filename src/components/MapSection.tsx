@@ -23,9 +23,10 @@ const MapSection = () => {
         </div>
         <div className="w-full h-[400px] rounded-lg overflow-hidden">
           <MapContainer
-            center={[51.505, -0.09]}
+            center={[-18.9186, -48.2772]}
             zoom={13}
             scrollWheelZoom={false}
+            style={{ height: "100%", width: "100%" }}
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
