@@ -1,14 +1,12 @@
-import Hero from "../components/Hero";
+import InfoCards from "../components/InfoCards";
 import MapSection from "../components/MapSection";
-import Stats from "../components/Stats";
 
 const HomePage = () => {
   return (
-    <div className="space-y-12">
-      <Hero />
+    <main className="px-4 lg:px-8 xl:px-12 py-6">
       <MapSection />
-      <Stats />
-    </div>
+      <InfoCards />
+    </main>
   );
 };
 
