@@ -25,7 +25,7 @@ const MapSection = () => {
           <MapContainer
             center={[-18.9186, -48.2772]}
             zoom={13}
-            scrollWheelZoom={false}
+            scrollWheelZoom={true}
             style={{ height: "100%", width: "100%" }}
           >
             <TileLayer
