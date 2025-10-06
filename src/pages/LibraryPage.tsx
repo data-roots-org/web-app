@@ -13,7 +13,7 @@ const speciesData = [
     description: "Madeira densa • Espaçamento 4-5m",
   },
   {
-    name: "Aroeira-Pimenteira",
+    name: "Aroeira",
     scientificName: "Schinus terebinthifolius",
     imageUrl:
       "https://acdn-us.mitiendanube.com/stores/002/257/699/products/aroeira-pimenteira09-e56ce665f869d3e0ed17209035353404-1024-1024.png",
