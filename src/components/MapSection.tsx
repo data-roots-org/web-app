@@ -102,7 +102,7 @@ const MapSection = () => {
     <div className="relative w-full h-[60vh] bg-gray-200 rounded-xl shadow-md overflow-hidden">
       <MapContainer
         center={ribeiraoPretoCoords}
-        zoom={13}
+        zoom={12}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
       >
