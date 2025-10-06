@@ -2,7 +2,6 @@
 import { GeoJSON, useMap } from "react-leaflet";
 import { useEffect, useState } from "react";
 import type { FeatureCollection } from "geojson";
-import L from "leaflet";
 
 const GreenAreasLayer = () => {
   const [geoJsonData, setGeoJsonData] = useState<FeatureCollection | null>(

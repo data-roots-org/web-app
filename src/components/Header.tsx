@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-// 1. Definimos as rotas e os nomes correspondentes
 const navItems = [
   { name: "Mapa de Alertas", path: "/" },
   { name: "Biblioteca de Espécies", path: "/biblioteca" },
@@ -8,7 +8,6 @@ const navItems = [
   { name: "Ajuda / FAQs", path: "/ajuda" },
 ];
 
-// Ícone placeholder para a logo (mantido como estava)
 const LogoIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,11 +31,11 @@ const LogoIcon = () => (
 );
 
 const Header = () => {
-  // 2. Pegamos a localização atual para saber qual rota está ativa
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm relative z-[1001]"> 
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-8 xl:px-12 py-3">
         <div className="flex items-center gap-3">
           <LogoIcon />
@@ -50,20 +49,16 @@ const Header = () => {
           </div>
         </div>
         <nav className="hidden md:flex items-center gap-4">
-          {/* 3. Mapeamos os itens de navegação */}
           {navItems.map((item) => {
-            // Verificamos se o caminho do item é o mesmo da URL atual
             const isActive = location.pathname === item.path;
-
             return (
               <Link
                 key={item.name}
                 to={item.path}
-                // 4. Aplicamos classes condicionalmente com base no estado 'isActive'
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   isActive
-                    ? "bg-green-100 text-green-800" // Estilo para link ativo
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900" // Estilo padrão
+                    ? "bg-green-100 text-green-800"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 }`}
               >
                 {item.name}
@@ -71,8 +66,13 @@ const Header = () => {
             );
           })}
         </nav>
+
         <div className="md:hidden">
-          <button className="text-gray-600 hover:text-gray-900">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-gray-600 hover:text-gray-900"
+            aria-label="Abrir menu"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -90,6 +90,30 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <nav className="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 z-20">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                    isActive
+                      ? "bg-green-100 text-green-800"
+                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      )}
     </header>
   );
 };
