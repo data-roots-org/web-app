@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { Search, ChevronDown, Leaf, Phone, Check } from "lucide-react";
+import React from "react";
 
 const speciesData = [
   {
@@ -16,7 +17,7 @@ const speciesData = [
     scientificName: "Schinus terebinthifolius",
     imageUrl:
       "https://acdn-us.mitiendanube.com/stores/002/257/699/products/aroeira-pimenteira09-e56ce665f869d3e0ed17209035353404-1024-1024.png",
-    tags: ["Densa", "Quebra-vento"],
+    tags: ["Alta resistência", "Quebra-vento"],
     description: "Crescimento rápido • Copa compacta",
   },
   {
@@ -24,7 +25,7 @@ const speciesData = [
     scientificName: "Licania tomentosa",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/0/06/Licania_tomentosa.JPG",
-    tags: ["Copa densa", "Quebra-vento"],
+    tags: ["Média resistência", "Quebra-vento"],
     description: "Sombra ampla • Baixa manutenção",
   },
   {
@@ -32,7 +33,7 @@ const speciesData = [
     scientificName: "Hevea brasiliensis",
     imageUrl:
       "https://www.infoescola.com/wp-content/uploads/2012/11/seringueira_85982494.jpg",
-    tags: ["Retenção hídrica", "Resistente"],
+    tags: ["Média resistência", "Retenção hídrica"],
     description: "Folhagem perene • Bons quebra-ventos",
   },
   {
@@ -40,7 +41,7 @@ const speciesData = [
     scientificName: "ex: Palmeira Real",
     imageUrl:
       "https://vendadearvores.com.br/wp-content/uploads/2023/04/palmeira-imperial-nreflorestamento.webp",
-    tags: ["Baixa combustão", "Alinhamento"],
+    tags: ["Baixa resistência", "Alinhamento"],
     description: "Folhas verticais • Paisagismo urbano",
   },
   {
@@ -48,38 +49,104 @@ const speciesData = [
     scientificName: "Acacia spp.",
     imageUrl:
       "https://www.sementesarbocenter.com.br/upload/produto/imagem/sementes-de-maric.jpg",
-    tags: ["Rápido estabelecimento", "Quebra-vento"],
+    tags: ["Alta resistência", "Quebra-vento"],
     description: "Fixadora de nitrogênio",
   },
 ];
 
-const FilterSidebar = () => {
+type GenericFilterProps = {
+  label: string;
+  options: string[];
+};
+
+const GenericFilter: React.FC<GenericFilterProps> = ({ label, options }) => {
+  const [selectedValue, setSelectedValue] = useState(options[0]);
+
+  return (
+    <Listbox value={selectedValue} onChange={setSelectedValue}>
+      <div className="relative">
+        <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white p-3 pr-10 text-left border border-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
+          <span className="block truncate text-gray-700">
+            {label}: {selectedValue}
+          </span>
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <ChevronDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </span>
+        </Listbox.Button>
+        <Transition
+          as={Fragment}
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
+            {options.map((option: string, optionIdx: number) => (
+              <Listbox.Option
+                key={optionIdx}
+                className={({ active }) =>
+                  `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
+                    active ? "bg-green-100 text-green-900" : "text-gray-900"
+                  }`
+                }
+                value={option}
+              >
+                {({ selected }) => (
+                  <>
+                    <span
+                      className={`block truncate ${
+                        selected ? "font-medium text-green-700" : "font-normal"
+                      }`}
+                    >
+                      {option}
+                    </span>
+                    {selected && (
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-green-600">
+                        <Check className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    )}
+                  </>
+                )}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        </Transition>
+      </div>
+    </Listbox>
+  );
+};
+
+type FilterSidebarProps = {
+  selectedResistencia: string;
+  onResistenciaChange: (value: string) => void;
+};
+
+const FilterSidebar: React.FC<FilterSidebarProps> = ({
+  selectedResistencia,
+  onResistenciaChange,
+}) => {
   const usoOptions = [
-    "Uso: Quebra-vento",
-    "Uso: Aceiro Verde / Corta-fogo",
-    "Uso: Alta Retenção de Umidade",
-    "Uso: Contenção de Encostas",
-    "Uso: Paisagismo / Ornamental",
-    "Uso: Arborização Urbana",
+    "Quebra-vento",
+    "Aceiro Verde / Corta-fogo",
+    "Alta Retenção de Umidade",
+    "Contenção de Encostas",
+    "Paisagismo / Ornamental",
+    "Arborização Urbana",
   ];
-
-  const [selectedUso, setSelectedUso] = useState(usoOptions[0]);
-
-  const otherFilters = [
-    "Resistência: Alta",
-    "Porte: Médio/Alto",
-    "Nativas do Cerrado",
-  ];
+  const resistenciaOptions = ["Todas", "Alta", "Média", "Baixa"];
+  const porteOptions = ["Todos", "Pequeno", "Médio", "Grande"];
+  const nativaOptions = ["Todas", "Sim", "Não"];
 
   return (
     <aside className="w-full md:w-64 lg:w-72">
       <h2 className="text-lg font-bold text-gray-800 mb-4">Filtros</h2>
       <div className="space-y-3">
-        <Listbox value={selectedUso} onChange={setSelectedUso}>
+        <GenericFilter label="Uso" options={usoOptions} />
+
+        <Listbox value={selectedResistencia} onChange={onResistenciaChange}>
           <div className="relative">
             <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white p-3 pr-10 text-left border border-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
               <span className="block truncate text-gray-700">
-                {selectedUso}
+                Resistência: {selectedResistencia}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                 <ChevronDown
@@ -88,7 +155,6 @@ const FilterSidebar = () => {
                 />
               </span>
             </Listbox.Button>
-
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
@@ -96,7 +162,7 @@ const FilterSidebar = () => {
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
-                {usoOptions.map((option, optionIdx) => (
+                {resistenciaOptions.map((option, optionIdx) => (
                   <Listbox.Option
                     key={optionIdx}
                     className={({ active }) =>
@@ -117,11 +183,11 @@ const FilterSidebar = () => {
                         >
                           {option}
                         </span>
-                        {selected ? (
+                        {selected && (
                           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-green-600">
                             <Check className="h-5 w-5" aria-hidden="true" />
                           </span>
-                        ) : null}
+                        )}
                       </>
                     )}
                   </Listbox.Option>
@@ -131,15 +197,8 @@ const FilterSidebar = () => {
           </div>
         </Listbox>
 
-        {otherFilters.map((filter) => (
-          <button
-            key={filter}
-            className="w-full flex justify-between items-center bg-white p-3 rounded-lg border border-gray-300 text-left"
-          >
-            <span className="text-gray-700">{filter}</span>
-            <ChevronDown className="h-5 w-5 text-gray-400" />
-          </button>
-        ))}
+        <GenericFilter label="Porte" options={porteOptions} />
+        <GenericFilter label="Nativa do Cerrado" options={nativaOptions} />
       </div>
     </aside>
   );
@@ -187,11 +246,23 @@ const SpeciesCard = ({ species }: SpeciesCardProps) => {
 
 const LibraryPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredSpecies = speciesData.filter(
-    (species) =>
-      species.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      species.scientificName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [selectedResistencia, setSelectedResistencia] = useState("Todas");
+
+  const filteredSpecies = speciesData
+    .filter((species) => {
+      const lowerCaseSearch = searchTerm.toLowerCase();
+      return (
+        species.name.toLowerCase().includes(lowerCaseSearch) ||
+        species.scientificName.toLowerCase().includes(lowerCaseSearch)
+      );
+    })
+    .filter((species) => {
+      if (selectedResistencia === "Todas") {
+        return true;
+      }
+      const tagToFind = `${selectedResistencia.toLowerCase()} resistência`;
+      return species.tags.some((tag) => tag.toLowerCase() === tagToFind);
+    });
 
   return (
     <div className="px-4 lg:px-8 xl:px-12 py-6">
@@ -229,7 +300,10 @@ const LibraryPage = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
-        <FilterSidebar />
+        <FilterSidebar
+          selectedResistencia={selectedResistencia}
+          onResistenciaChange={setSelectedResistencia}
+        />
         <main className="flex-1 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredSpecies.map((species) => (
             <SpeciesCard key={species.name} species={species} />
