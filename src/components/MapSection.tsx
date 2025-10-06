@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import GreenAreasLayer from "./GreenAreasLayer";
+import FireHotspotsLayer from "./FireHotspotsLayer";
 
 type ToggleSwitchProps = {
   label: string;
@@ -29,7 +30,6 @@ const ToggleSwitch = ({ label, isEnabled, onToggle }: ToggleSwitchProps) => {
     </div>
   );
 };
-
 
 type FilterSidebarProps = {
   isUltimas24h: boolean;
@@ -92,7 +92,6 @@ const FilterSidebar = ({
   );
 };
 
-
 const MapSection = () => {
   const ribeiraoPretoCoords: [number, number] = [-21.1767, -47.8103];
 
@@ -114,7 +113,7 @@ const MapSection = () => {
         />
 
         {showGreenAreas && <GreenAreasLayer />}
-
+        {showUltimas24h && <FireHotspotsLayer />}
       </MapContainer>
 
       <FilterSidebar

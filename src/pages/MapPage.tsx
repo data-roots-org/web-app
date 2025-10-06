@@ -22,8 +22,9 @@ const MapPage = () => {
 
   useEffect(() => {
     const fetchFireData = async () => {
-      const apiKey = "525c557f8e33a674a280afa2d130f40e";
-      const url = `https://firms.modaps.eosdis.nasa.gov/api/country/csv/${apiKey}/VIIRS_SNPP_NRT/BRA/1`;
+      // const apiKey = "525c557f8e33a674a280afa2d130f40e";
+      // const url = `https://firms.modaps.eosdis.nasa.gov/api/country/csv/${apiKey}/VIIRS_SNPP_NRT/BRA/1`;
+      const url = `https://firms.modaps.eosdis.nasa.gov/api/area/csv/524334388aaa819d21a145d0d7a5146a/VIIRS_SNPP_NRT/-47.90,-25.30,-42.60,-21.10/7`;
 
       try {
         const response = await fetch(url);
