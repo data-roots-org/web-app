@@ -21,7 +21,7 @@ const GreenAreasLayer = () => {
   const styleGeoJSON = () => {
     return {
       fillColor: "#28a745",
-      weight: 1,
+      weight: 0.3,
       opacity: 1,
       color: "#006400",
       fillOpacity: 0.2,
