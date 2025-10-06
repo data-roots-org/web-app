@@ -77,7 +77,7 @@ const FilterSidebar = ({
             <h4 className="font-bold text-gray-800 mb-2">Legenda</h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
                 <span className="text-gray-600">&lt; 10 hrs de foco</span>
               </div>
               <div className="flex items-center gap-2">
