@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 
 import Header from './components/Header';
 import LibraryPage from "./pages/LibraryPage";
+import MapPage from "./pages/MapPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/biblioteca" element={<LibraryPage />} />
+        <Route path="/mapa" element={<MapPage />} />
       </Routes>
     </div>
   );
