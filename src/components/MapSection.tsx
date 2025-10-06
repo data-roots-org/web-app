@@ -34,8 +34,6 @@ const ToggleSwitch = ({ label, isEnabled, onToggle }: ToggleSwitchProps) => {
 type FilterSidebarProps = {
   isUltimas24h: boolean;
   onToggleUltimas24h: () => void;
-  isAltoRisco: boolean;
-  onToggleAltoRisco: () => void;
   isGreenArea: boolean;
   onToggleGreenArea: () => void;
 };
@@ -43,8 +41,6 @@ type FilterSidebarProps = {
 const FilterSidebar = ({
   isUltimas24h,
   onToggleUltimas24h,
-  isAltoRisco,
-  onToggleAltoRisco,
   isGreenArea,
   onToggleGreenArea,
 }: FilterSidebarProps) => {
@@ -66,14 +62,9 @@ const FilterSidebar = ({
         <>
           <div className="space-y-3">
             <ToggleSwitch
-              label="Últimas 24h"
+              label="Incêndios (24h)"
               isEnabled={isUltimas24h}
               onToggle={onToggleUltimas24h}
-            />
-            <ToggleSwitch
-              label="Alto Risco de Ignição"
-              isEnabled={isAltoRisco}
-              onToggle={onToggleAltoRisco}
             />
             <ToggleSwitch
               label="Área Verde"
@@ -105,7 +96,6 @@ const MapSection = () => {
   const ribeiraoPretoCoords: [number, number] = [-21.1767, -47.8103];
 
   const [showUltimas24h, setShowUltimas24h] = useState(false);
-  const [showAltoRisco, setShowAltoRisco] = useState(false);
   const [showGreenAreas, setShowGreenAreas] = useState(false);
 
   return (
@@ -128,8 +118,6 @@ const MapSection = () => {
       <FilterSidebar
         isUltimas24h={showUltimas24h}
         onToggleUltimas24h={() => setShowUltimas24h(!showUltimas24h)}
-        isAltoRisco={showAltoRisco}
-        onToggleAltoRisco={() => setShowAltoRisco(!showAltoRisco)}
         isGreenArea={showGreenAreas}
         onToggleGreenArea={() => setShowGreenAreas(!showGreenAreas)}
       />
