@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useState, useEffect } from "react";
 import L from "leaflet";
@@ -13,8 +12,8 @@ interface FireHotspot {
 
 const MapPage = () => {
   const [hotspots, setHotspots] = useState<(FireHotspot | null)[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setIsLoading] = useState(true);
+  const [, setError] = useState<string | null>(null);
 
   const fireIcon = new L.Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/785/785116.png",
